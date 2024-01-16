@@ -35,6 +35,39 @@ namespace Calculator
             UpdateDisplay();
         }
 
+        private void BtnEqualsClicked(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrEmpty(currentOperator) && !string.IsNullOrEmpty(previousInput) && !string.IsNullOrEmpty(currentOperator))
+            {
+                if (currentInput == string.Empty) currentInput = "0";
+                double nr1 = Convert.ToDouble(previousInput);
+                double nr2 = Convert.ToDouble(currentInput);
+                double result = Operation(nr1, nr2, currentOperator);
+                labelWynik2.Text = result.ToString();
+                currentInput = result.ToString();
+                previousInput = string.Empty;
+                currentOperator = string.Empty;
+            }
+        }
+
+        private void ClearClick(object sender, EventArgs e)
+        {
+            currentInput = string.Empty;
+            previousInput = string.Empty;
+            currentOperator = string.Empty;
+            labelWynik2.Text = "0";
+            labelWynik1.Text = "";
+        }
+
+        private void BtnCommaClicked(object sender, EventArgs e)
+        {
+            if(!currentInput.Contains(","))
+            {
+                currentInput += ".";
+                UpdateDisplay();
+            }
+        }
+
         private void UpdateDisplay()
         {
             if(labelWynik1.Text.Contains($"{currentOperator}"))
